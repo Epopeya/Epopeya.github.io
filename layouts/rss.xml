@@ -1,0 +1,18 @@
+<rss version="2.0">
+	<channel>
+		<title>Epopeya</title>
+		<link>https://epopeya.github.io/</link>
+		<description>Publicaciones sobre el equipo Epopeya</description>
+		<generator>Zine -- https://github.com/kristoff-it/zine</generator>
+		<language>es</language>
+		<lastBuildDate :text="$build.generated.formatHTTP()"></lastBuildDate>
+		<ctx :loop="$page.subpages()">
+			<item>
+				<title :text="$loop.it.title"></title>
+				<link :text="$site.host_url.addPath($loop.it.link())"></link>
+				<pubDate :text="$loop.it.date.formatHTTP()"></pubDate>
+				<guid :text="$site.host_url.addPath($loop.it.link())"></guid>
+			</item>
+		</ctx>
+	</channel>
+</rss>

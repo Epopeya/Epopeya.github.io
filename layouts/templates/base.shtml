@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head id="head">
+        <meta charset="UTF-8">
+        <meta name="description" content="Epopeya team WRO">
+        <meta name="twitter:description" content="Epopeya team WRO">
+        <meta name="twitter:title" content="$page.title.suffix(' - Epopeya')">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="$page.title.suffix(' - Epopeya')">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title id="title"><super> - Epopeya</title>
+        <link rel="stylesheet" type="text/css" href="$site.asset('fonts.css').link()">
+        <style>
+            html {
+                background-color: #1e1e2e;
+                color: #cdd6f4;
+                font-family: Vollkorn;
+                font-feature-settings: "lnum", "pnum";
+            }
+
+            #content {
+                max-width: 800px;
+                margin: 24px auto;
+            }
+
+            a {
+                color: #89b4fa;
+            }
+
+            .centered {
+                align-self: center;
+                text-align: center;
+            }
+        </style>
+        <super>
+    </head>
+    <body>
+        <script type="module">
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: "base",
+                themeVariables: {
+                    primaryColor: "#313244",
+                    primaryTextColor: "#cdd6f4",
+                    primaryBorderColor: "#b4befe",
+                    lineColor: "#313244",
+                    secondaryColor: "#45475a",
+                    tertiaryColor: "#585b70",
+                },
+            });
+        </script>
+
+        <div id="content">
+            <div class="centered">
+                <a href="/">inicio</a>
+                -
+                <a href="https://github.com/Epopeya">github</a>
+                -
+                <a href="https://instagram.com/epopeya.team">instagram</a>
+            </div>
+            <super>
+        </div>
+    </body>
+</html>

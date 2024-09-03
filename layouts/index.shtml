@@ -1,0 +1,32 @@
+<extend template="base.shtml">
+
+<title id="title" :text="$page.title"></title>
+
+<head id="head">
+    <style>
+        .post-link {
+            display: block;
+            font-size: 1.6em;
+            line-height: 1.8em;
+        }
+
+        .post-date {
+            color: #a6adc8;
+        }
+    </style>
+</head>
+
+<div id="content">
+    <h1>Epopeya</h1>
+    <ctx :html="$page.content()"></ctx>
+
+    <h2>Publicaciones</h2>
+    <div :loop="$page.subpages()">
+        <a href="$loop.it.link()" class="post-link" :text="$loop.it.title"></a>
+        <div class="post-date" :text="$loop.it.date.format('2006/01/02')"></div>
+    </div>
+
+    <br>
+
+    <small>disponible en <a href="/rss.xml" rel="alternate" type="application/rss+xml">feed RSS</a></small>
+</div>

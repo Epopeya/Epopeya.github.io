@@ -1,0 +1,69 @@
+---
+.title = "La electrónica",
+.date = @date("2024-09-02"),
+.author = "Arnau Camprubí",
+.layout = "post.shtml",
+---
+
+El componente principal del robot es una placa de circuito impreso (*PCB* por sus siglas en inglés) rectangular.
+
+![La PCB principal de nuestro robot](pcb.png "Diagrama de una placa de circuito impreso, una cara en rojo y la otra en azul, con todas las conexiones entre componentes")
+
+En ella se encuentran diversos componentes, entre los que destacan:
+- 2 *ESP-32*
+- 2 drivers de motores
+- Sistema de alimentación
+- Indicadores LED
+- Sensor IMU
+
+# Microcontroladores
+Los microcontroladores son [ESP-32](https://www.espressif.com/en/products/socs/esp32). Fueron elegidos por sus capabilidades, tanto de procesamiento como de I/O.
+
+```=html
+<figure>
+    <table>
+        <tr><th style="text-align: right">CPU</th><td>Xtensa dual-core de 32 bits, a 240MHz</td></tr>
+        <tr><th style="text-align: right">Memoria</th><td>520KiB</td></tr>
+        <tr><th style="text-align: right">Pines GPIO</th><td>34</td></tr>
+        <tr><th style="text-align: right">ADCs</th><td>18 de 12 bits</td></tr>
+        <tr><th style="text-align: right">SPI</th><td>4</td></tr>
+        <tr><th style="text-align: right">I2C</th><td>2</td></tr>
+        <tr><th style="text-align: right">UART</th><td>3</td></tr>
+        <tr><th style="text-align: right">PWM</th><td>1</td></tr>
+    </table>
+    <figcaption>Capabilidades del ESP-32</figcaption>
+</figure>
+```
+
+Están conectados por UART en una jerarquía *master*-*slave*. El *master* realiza el procesamiento general, mientras el *slave* funciona como controlador de los motores y la dirección. Esto permite dedicar todo el procesamiento del *slave* a un algoritmo que suaviza el movimiento del robot. Además, el *slave* notifica al *master* cada cierto tiempo el número de pasos del encoder desde la última actualización. Con esta información, el *master* es perfectamente capaz de geolocalizarse.
+
+```=html
+<figure>
+    <pre class="mermaid">
+        sequenceDiagram
+            Master->>Slave: Motores al 43%
+            Master->>Slave: Servo de dirección a 35º
+            Slave->>Master: +3 pasos de encoder
+            Master->>Slave: Motores al 47%
+    </pre>
+    <figcaption>Ejemplo de comunicación entre ambos ESP-32</figcaption>
+</figure>
+```
+
+# Drivers del motor
+Se usan dos drivers en paralelo, cada uno de 2.4A, para así conseguir una mayor potencia. El motor se alimenta a 7.5V, por lo que la potencia máxima que ofrecen los drivers es de 36W.
+
+![Parte del esquemático, referente a los drivers del motor](schem-motor.png "Esquemático de dos drivers del motor conectados en paralelo")
+
+# Lidar
+Aunque este no se encuentra en la PCB, el robot también tiene un lidar. Es la única forma de posicionamiento absoluto de la que dispone. Se trata de un instrumento que mide el tiempo que tarda un rayo de luz en rebotar sobre un objeto y volver al sensor, sabiendo así la distancia. El instrumento también gira constantemente, ofreciendo así la distancia en cualquier dirección.
+
+# Sistema de alimentación
+El robot usa una batería de litio de 7.5V. Sin embargo, los componentes del robot necesitan diferentes voltajes. Es por esto que se usan varios reguladores de voltaje.
+
+![Circuito regulador de 7.5V a 3.3V](schem-power.png "Esquemático de un regulador de voltaje, de 7.5V a 3.3V")
+
+En total, el robot consta de 3 reguladores de voltaje:
+- 3.3V
+- 5V general
+- 5V lidar

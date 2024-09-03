@@ -1,0 +1,31 @@
+---
+.title = "Nuestro robot",
+.date = @date("2024-09-01"),
+.author = "Arnau Camprubí",
+.layout = "post.shtml",
+---
+
+Para el reto de este año de la [WRO](https://wro-association.org) hemos hecho un robot muy similar a un automóvil, como lo requería el reto.
+
+# Dirección
+La dirección se basa en la [geometría de Ackermann](https://es.wikipedia.org/wiki/Geometr%C3%ADa_de_Ackermann). Esta geometría resuelve varios problemas de forma muy elegante.
+
+## Un solo accionamiento
+Para cambiar la dirección del robot, un solo accionamiento mecánico es necesario. De esta forma, no es necesario motorizar el giro de ambas ruedas direccionables de forma independiente.
+
+## Radio de giro
+Para adaptar mejor las ruedas al giro, no todas deben orientarse igual. La geometría de Ackermann resuelve esto orientando todas las ruedas de forma perpendicular a un punto llamado el *centro de giro*.
+
+![Geometría Ackermann](ackermann.svg "Diagrama en el que se muestra como, al girar, las ruedas se orientan de forma que sus ejes de giro intersectan en un mismo punto")
+
+# Transmisión
+
+Cuando se trata de robots o coches a pequeña escala, se suele motorizar cada rueda por separado, debido a la simplicidad mecánica. Nosotros, en cambio, hemos optado por un sistema de transmisión diferencial. 
+
+Al girar, las ruedas exteriores del vehículo deben recorer más distancia en el mismo tiempo, por lo que necesitan girar más rápido. En las ruedas delanteras esto no es un problema, ya que pueden girar libremente. En las ruedas traseras, como ambas están motorizadas juntas, comparten eje y giran en la misma dirección. Esto quiere decir que, en un giro, una de las dos ruedas se estará deslizando.
+
+La transmisión diferencial (también llamada simplemente el *diferencial*) soluciona este problema. Un diferencial tiene tres ejes diferentes. Por la disposición de engranajes en su interior, siempre se cuple que la suma de la velocidad de sus dos ejes laterales es igual a la velocidad de su eje central.
+
+![Diferencial de automóvil](diferencial.jpg "Un diferencial de automóvil, abierto, donde se ven claramente los engranajes que permiten su funcionamiento")
+
+Si se motoriza el eje central del diferencial y se conectan las ruedas a los ejes laterales, la velocidad total de las ruedas será siempre proporcional a la del motor, pero no necesariamente igual entre ambas ruedas.

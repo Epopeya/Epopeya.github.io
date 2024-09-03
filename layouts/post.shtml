@@ -1,0 +1,60 @@
+<extend template="base.shtml">
+
+<title id="title" :text="$page.title"></title>
+
+<head id="head">
+    <style>
+        .post-date {
+            font-size: 0.5em;
+            color: #a6adc8;
+        }
+
+        figure {
+            margin: 0;
+            padding: 0;
+        }
+
+        figure img {
+            display: block;
+        }
+
+        figure .mermaid {
+            text-align: center;
+        }
+
+        figure img,
+        figure table,
+        figure .mermaid {
+            max-width: 400px;
+            width: 80vw;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0;
+        }
+
+        figure figcaption {
+            text-align: center;
+            font-style: italic;
+            font-size: 1.1em;
+            margin-top: 0.4em;
+        }
+
+        table, th, td, tr {
+            border: 1px solid #6c7086;
+            padding: 10px;
+            margin: 0;
+            border-spacing: 0;
+        }
+    </style>
+</head>
+
+<div id="content">
+    <h1>
+        <ctx :text="$page.title"></ctx>
+        <div class="post-date" :text="$page.date.format('2006/01/02')"></div>
+    </h1>
+
+    <br>
+
+    <ctx :html="$page.content()"></ctx>
+</div>

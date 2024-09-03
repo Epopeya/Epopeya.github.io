@@ -1,0 +1,14 @@
+---
+.title = "Home",
+.date = @date(""),
+.author = "",
+.layout = "index.shtml",
+.alternatives = [
+    {
+        .layout = "rss.xml",
+        .output = "rss.xml",
+    }
+],
+---
+
+Somos un equipo participando en la [WRO](https://wro-association.org/), una competición de robótica mundial.
