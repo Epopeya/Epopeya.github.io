@@ -14,7 +14,8 @@
             padding: 0;
         }
 
-        figure img {
+        figure img,
+        figure iframe {
             display: block;
         }
 
@@ -24,7 +25,8 @@
 
         figure img,
         figure table,
-        figure .mermaid {
+        figure .mermaid,
+        figure iframe {
             max-width: 400px;
             width: 80vw;
             margin-left: auto;

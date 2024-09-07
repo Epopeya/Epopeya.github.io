@@ -1,0 +1,17 @@
+---
+.title = "El robot funcionando",
+.date = @date("2024-09-08"),
+.author = "Daniel Kauss",
+.layout = "post.shtml",
+---
+
+Como lo requería el reto, hemos grabado un video de nuestro robot funcionando.
+
+```=html
+<figure>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/kX2IEt3teCY?si=Xa8jZF6X_JvzH2tr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <figcaption>Nuestro robot realizando las tres vueltas</figcaption>
+</figure>
+```
+
+El robot es capaz de dar vueltas *sin problema*.
