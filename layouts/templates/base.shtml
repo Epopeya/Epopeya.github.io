@@ -11,6 +11,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title id="title"><super> - Epopeya</title>
         <link rel="stylesheet" type="text/css" href="$site.asset('fonts.css').link()">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap" rel="stylesheet">
         <style>
             html {
                 background-color: #1e1e2e;
@@ -31,6 +34,28 @@
             .centered {
                 align-self: center;
                 text-align: center;
+            }
+
+            pre > code {
+                background-color: #313244;
+                display: block;
+                margin: 32px 48px;
+                padding: 16px;
+                font-family: "Fira Mono";
+                font-size: 14px;
+                border-radius: 8px;
+            }
+
+            code.json .string {
+                color: #a6e3a1;
+            }
+
+            code.json .key {
+                color: #89b4fa;
+            }
+
+            code.json .number {
+                color: #fab387;
             }
         </style>
         <super>

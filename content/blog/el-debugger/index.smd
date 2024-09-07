@@ -1,0 +1,51 @@
+---
+.title = "El debugger",
+.date = @date("2024-09-07"),
+.author = "Arnau Camprubí",
+.layout = "post.shtml",
+---
+
+Para la depuración de nuestro robot, hemos usado otro ESP-32, diferente de [los descritos anteriormente]($link.page('blog/la-electronica')). No es esencial para el funcionamiento del robot, ya que su única función es la de presentar información de depuración. De esta forma nos aseguramos de que, para "desactivar" el modo debug, tan solo hemos de quitar la placa del robot, en lugar de subir el código de nuevo a cada chip. Esto minimiza las posibilidades de que haya un fallo al subir el programa.
+
+El chip *master* y el *debugger* tienen una conexión UART entre ellos de un solo sentido, donde el *master* manda paquetes de depuración al *debugger*. El *debugger* sirve una página web mediante HTTP a la que, cualquier cliente en la red local, se puede conectar.
+
+# Página
+
+La página servida tiene una sencilla página con un mapa, mensajes de "log", y varios indicadores.
+
+![Interfaz de usuario servida por el chip](ui.png)
+
+Para actualizar los datos de la página, el *debugger* establece un websocket entre él mismo y cualquier cliente que se le conecte. Por este websocket se mandan todos los paquetes que el *master* le manda.
+
+# Paquetes
+
+Existen varios tipos de paquetes de depuración:
+- **Mensaje**: Un string de texto
+- **Target direction**: La dirección en la que el robot "quiere ir" en este momento
+- **Current direction**: La dirección *real* hacia la que el robot está orientado
+- **Batería**: El voltaje de la batería
+- **Position**: La posición relativa del robot
+- **Ruta**: Los puntos de ruta por los que el robot quiere pasar a continuación
+- **Lidar**: Un punto visto por el lidar
+- **Girar mapa**: Notifica que el robot se acaba de dar cuenta de que debe girar hacia el otro lado
+
+## Encoding por UART
+Para mandar paquetes por UART, el *master* codifica un *header* de un byte que diferencia el tipo de paquete, seguido de los datos (dependiendo del tipo). Esto comprime lo máximo posible los datos.
+
+## Encoding websocket
+Cada cierto tiempo, el *debugger* manda un **conjunto** de todos los paquetes recibidos que aún no se habían mandado al cliente. Se manda en formato JSON. Un ejemplo de paquete de websocket podría ser:
+```json
+{
+    "pos": [-1534, 32],
+    "rot": 9.42,
+    "trot": -1.5,
+    "bat": 8.2,
+    "msgs": [
+        "Todo va muy bien!"
+    ],
+    "route":[
+        [-1000, 1000],
+    ],
+    "lidar": [-501, 37]
+}
+```
