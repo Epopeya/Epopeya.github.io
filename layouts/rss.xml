@@ -12,6 +12,7 @@
 				<link :text="$site.host_url.addPath($loop.it.link())"></link>
 				<pubDate :text="$loop.it.date.formatHTTP()"></pubDate>
 				<guid :text="$site.host_url.addPath($loop.it.link())"></guid>
+                <content type="html" xml:base="$loop.it.link()" :text="$loop.it.content()"></content>
 			</item>
 		</ctx>
 	</channel>
